@@ -11,8 +11,8 @@ import org.springframework.context.annotation.Primary;
 @Configuration
 public class AwsSqsConfig {
 
-    @Value("${queueUrl}")
-    private String localStackSqsUrl;
+    @Value("${sqs.endpoint}")
+    private String sqsEndPoint;
 
     @Value("${cloud.aws.region.static}")
     private String awsRegion;
@@ -21,7 +21,7 @@ public class AwsSqsConfig {
     @Primary
     public AmazonSQSAsync amazonSQSAsync() {
         return AmazonSQSAsyncClientBuilder.standard()
-                .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(localStackSqsUrl, awsRegion))
+                .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(sqsEndPoint, awsRegion))
                 .build();
     }
 }
